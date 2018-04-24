@@ -1,0 +1,77 @@
+import edelta.badsmells.finder.lib.BadSmellsFinder
+import edelta.refactorings.lib.Refactorings
+import java.util.function.Predicate
+import org.eclipse.emf.ecore.EClassifier
+import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.util.EcoreUtil
+
+package edelta.resolver.lib
+
+use Refactorings as refactorings
+use BadSmellsFinder as finder
+
+def checkRefactoringsCatalog(EPackage epackage){
+	resolveDuplicatedFeatures(epackage);
+	// to ask for confirmation:
+	
+	/*resolveDeadClassifiers(epackage, [
+		cl |
+		println("Should I remove dead classifier "
+			+ getEObjectRepr(cl)
+			+ "? (y/n)")
+		return new java.util.Scanner(System.^in).nextLine.equalsIgnoreCase("y")
+	]);*/
+	
+	// remove without confirmation
+	resolveDeadClassifiers(epackage, [true]);
+	resolveRedundantContainers(epackage);
+	resolveClassificationByHierarchy(epackage);
+	resolveConcreteAbstractMetaclass(epackage);
+	resolveAbstractConcreteMetaclass(epackage);
+}
+
+/**
+ * Extracts superclasses in the presence of duplicate features
+ * considering all the classes of the given package.
+ * 
+ * @param epackage
+ */
+def resolveDuplicatedFeatures(EPackage epackage) {
+	finder.findDuplicateFeatures(epackage)
+		.values
+		.forEach[refactorings.extractSuperclass(it)]
+}
+
+def resolveDeadClassifiers(EPackage epackage, Predicate<EClassifier> shouldRemove) {
+	val deadClassifiers = finder.findDeadClassifiers(epackage)
+	deadClassifiers.forEach[
+		cl |
+		if (shouldRemove.test(cl))
+			EcoreUtil.remove(cl)
+	]
+}
+
+def resolveRedundantContainers(EPackage epackage) {
+	refactorings.redundantContainerToEOpposite(
+		finder.findRedundantContainers(epackage)
+	)
+}
+
+def resolveClassificationByHierarchy(EPackage epackage) {
+	refactorings.classificationByHierarchyToEnum(
+		finder.findClassificationByHierarchy(epackage)
+	)
+}
+
+def resolveConcreteAbstractMetaclass(EPackage epackage) {
+	refactorings.concreteBaseMetaclassToAbstract(
+		finder.findConcreteAbstractMetaclasses(epackage)
+	)
+}
+
+def resolveAbstractConcreteMetaclass(EPackage epackage) {
+	refactorings.abstractBaseMetaclassToConcrete(
+		finder.findAbstractConcreteMetaclasses(epackage)
+	)
+}
+

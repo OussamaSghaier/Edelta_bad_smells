@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="CRM" nsURI="http://cs.gssi.it/CRM" nsPrefix="crm">
+  <eClassifiers xsi:type="ecore:EClass" name="Client" abstract="true" eSuperTypes="#//NameElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crm" lowerBound="1" eType="#//CRM"
+        eOpposite="#//CRM/clients"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Worker" eSuperTypes="#//NameElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crm" eType="#//CRM" eOpposite="#//CRM/employees"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="company" lowerBound="1"
+        eType="#//Company" eOpposite="#//Company/workers"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="workerType" eType="#//WorkerType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CRM" eSuperTypes="#//NameElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="employees" lowerBound="1"
+        upperBound="-1" eType="#//Worker" containment="true" eOpposite="#//Worker/crm"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="clients" upperBound="-1"
+        eType="#//Client" containment="true" eOpposite="#//Client/crm"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Company" eSuperTypes="#//NameElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="workers" upperBound="-1"
+        eType="#//Worker" eOpposite="#//Worker/company"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CRMModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crm" eType="#//CRM" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Company" eType="#//Company"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Private" eSuperTypes="#//Client">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="completeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Organization" eSuperTypes="#//Client">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="vat" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NameElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="WorkerType">
+    <eLiterals name="INTERNALWORKER" value="1"/>
+    <eLiterals name="EXTERNALWORKER" value="2"/>
+  </eClassifiers>
+</ecore:EPackage>

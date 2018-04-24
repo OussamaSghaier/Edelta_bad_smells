@@ -1,0 +1,12 @@
+.DS_Store
+bin/
+*.class
+*._trace
+*.gz
+paper/main.pdf
+*.out
+*.log
+*.bbl
+*.aux
+*.blg
+*.dvi
