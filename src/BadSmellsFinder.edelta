@@ -54,10 +54,7 @@ def findDuplicateFeatures(EPackage epackage) {
  * @param matcher
  */
  def findDuplicateFeaturesCustom(EPackage epackage, BiPredicate<EStructuralFeature, EStructuralFeature> matcher) {
-	val allFeatures = epackage.
-		allEClasses.
-		map[EStructuralFeatures].
-		flatten
+	val allFeatures = epackage.allEStructuralFeatures
 	val map = <EStructuralFeature, List<EStructuralFeature>>newLinkedHashMap
 	for (f : allFeatures) {
 		val found = map.entrySet.findFirst[matcher.test(it.key, f)]
@@ -218,6 +215,13 @@ def hasNoReferenceInThisPackage(EClassifier c) {
 		.filter(EClassifier)
 		.filter[EPackage === thisPackage]
 		.empty
+}
+
+def allEStructuralFeatures(EPackage epackage) {
+	epackage.
+		allEClasses.
+		map[EStructuralFeatures].
+		flatten
 }
 
 def allEClasses(EPackage epackage) {

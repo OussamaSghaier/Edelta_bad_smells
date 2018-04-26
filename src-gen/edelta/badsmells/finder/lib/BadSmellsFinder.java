@@ -77,17 +77,14 @@ public class BadSmellsFinder extends AbstractEdelta {
    * @param matcher
    */
   public Map<EStructuralFeature, List<EStructuralFeature>> findDuplicateFeaturesCustom(final EPackage epackage, final BiPredicate<EStructuralFeature, EStructuralFeature> matcher) {
-    final Function1<EClass, EList<EStructuralFeature>> _function = (EClass it) -> {
-      return it.getEStructuralFeatures();
-    };
-    final Iterable<EStructuralFeature> allFeatures = Iterables.<EStructuralFeature>concat(IterableExtensions.<EClass, EList<EStructuralFeature>>map(this.allEClasses(epackage), _function));
+    final Iterable<EStructuralFeature> allFeatures = this.allEStructuralFeatures(epackage);
     final LinkedHashMap<EStructuralFeature, List<EStructuralFeature>> map = CollectionLiterals.<EStructuralFeature, List<EStructuralFeature>>newLinkedHashMap();
     for (final EStructuralFeature f : allFeatures) {
       {
-        final Function1<Map.Entry<EStructuralFeature, List<EStructuralFeature>>, Boolean> _function_1 = (Map.Entry<EStructuralFeature, List<EStructuralFeature>> it) -> {
+        final Function1<Map.Entry<EStructuralFeature, List<EStructuralFeature>>, Boolean> _function = (Map.Entry<EStructuralFeature, List<EStructuralFeature>> it) -> {
           return Boolean.valueOf(matcher.test(it.getKey(), f));
         };
-        final Map.Entry<EStructuralFeature, List<EStructuralFeature>> found = IterableExtensions.<Map.Entry<EStructuralFeature, List<EStructuralFeature>>>findFirst(map.entrySet(), _function_1);
+        final Map.Entry<EStructuralFeature, List<EStructuralFeature>> found = IterableExtensions.<Map.Entry<EStructuralFeature, List<EStructuralFeature>>>findFirst(map.entrySet(), _function);
         if ((found != null)) {
           List<EStructuralFeature> _value = found.getValue();
           _value.add(f);
@@ -96,22 +93,22 @@ public class BadSmellsFinder extends AbstractEdelta {
         }
       }
     }
-    final Function2<EStructuralFeature, List<EStructuralFeature>, Boolean> _function_1 = (EStructuralFeature p1, List<EStructuralFeature> p2) -> {
+    final Function2<EStructuralFeature, List<EStructuralFeature>, Boolean> _function = (EStructuralFeature p1, List<EStructuralFeature> p2) -> {
       int _size = p2.size();
       return Boolean.valueOf((_size > 1));
     };
-    final Map<EStructuralFeature, List<EStructuralFeature>> result = MapExtensions.<EStructuralFeature, List<EStructuralFeature>>filter(map, _function_1);
-    final Consumer<Map.Entry<EStructuralFeature, List<EStructuralFeature>>> _function_2 = (Map.Entry<EStructuralFeature, List<EStructuralFeature>> it) -> {
-      final Supplier<String> _function_3 = () -> {
-        final Function1<EStructuralFeature, String> _function_4 = (EStructuralFeature it_1) -> {
+    final Map<EStructuralFeature, List<EStructuralFeature>> result = MapExtensions.<EStructuralFeature, List<EStructuralFeature>>filter(map, _function);
+    final Consumer<Map.Entry<EStructuralFeature, List<EStructuralFeature>>> _function_1 = (Map.Entry<EStructuralFeature, List<EStructuralFeature>> it) -> {
+      final Supplier<String> _function_2 = () -> {
+        final Function1<EStructuralFeature, String> _function_3 = (EStructuralFeature it_1) -> {
           return this.lib.getEObjectRepr(it_1);
         };
-        String _join = IterableExtensions.join(ListExtensions.<EStructuralFeature, String>map(it.getValue(), _function_4), ", ");
+        String _join = IterableExtensions.join(ListExtensions.<EStructuralFeature, String>map(it.getValue(), _function_3), ", ");
         return ("Duplicate features: " + _join);
       };
-      this.logInfo(_function_3);
+      this.logInfo(_function_2);
     };
-    result.entrySet().forEach(_function_2);
+    result.entrySet().forEach(_function_1);
     return result;
   }
   
@@ -294,6 +291,13 @@ public class BadSmellsFinder extends AbstractEdelta {
       _xblockexpression = IterableExtensions.isEmpty(IterableExtensions.<EClassifier>filter(Iterables.<EClassifier>filter(EcoreUtil.CrossReferencer.find(CollectionLiterals.<EClassifier>newArrayList(c)).keySet(), EClassifier.class), _function));
     }
     return _xblockexpression;
+  }
+  
+  public Iterable<EStructuralFeature> allEStructuralFeatures(final EPackage epackage) {
+    final Function1<EClass, EList<EStructuralFeature>> _function = (EClass it) -> {
+      return it.getEStructuralFeatures();
+    };
+    return Iterables.<EStructuralFeature>concat(IterableExtensions.<EClass, EList<EStructuralFeature>>map(this.allEClasses(epackage), _function));
   }
   
   public Iterable<EClass> allEClasses(final EPackage epackage) {
