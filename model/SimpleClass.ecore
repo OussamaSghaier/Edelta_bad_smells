@@ -30,7 +30,10 @@
           lowerBound="1" eType="#/1/Boolean"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false"
           lowerBound="1" eType="#/0/Classifier"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="class" lowerBound="1"
+          eType="#/0/Class"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NonReferencedClass"/>
   </ecore:EPackage>
   <ecore:EPackage name="PrimitiveTypes" nsURI="http://primitiveTypes" nsPrefix="pt">
     <eClassifiers xsi:type="ecore:EDataType" name="String" instanceTypeName="String"/>

@@ -42,8 +42,6 @@
           upperBound="-1" eType="#/0/Label" containment="true" eOpposite="#/0/Label/labeledElement"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#/0/LocatedElement">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" ordered="false"
-          lowerBound="1" eType="#/1/String"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="labeledElement" ordered="false"
           lowerBound="1" eType="#/0/LabeledElement" eOpposite="#/0/LabeledElement/labels"/>
     </eClassifiers>
@@ -53,20 +51,16 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="netContent" ordered="false"
           eType="#/0/NetContent" eOpposite="#/0/NetContent/name"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="NetContentElement" eSuperTypes="#/0/NetContent #/0/IdedElement">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="netcontentelementType"
-          eType="#/0/NetContentElementType"/>
-    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NetContentElement" abstract="true"
+        eSuperTypes="#/0/NetContent #/0/IdedElement"/>
     <eClassifiers xsi:type="ecore:EClass" name="Arc" eSuperTypes="#/0/NetContent #/0/IdedElement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
           lowerBound="1" eType="#/0/NetContentElement"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
           lowerBound="1" eType="#/0/NetContentElement"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EEnum" name="NetContentElementType">
-      <eLiterals name="PLACE" value="1"/>
-      <eLiterals name="TRANSITION" value="2"/>
-    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Place" eSuperTypes="#/0/NetContentElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#/0/NetContentElement"/>
   </ecore:EPackage>
   <ecore:EPackage name="PrimitiveTypes" nsURI="http://pt.org" nsPrefix="pt">
     <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceTypeName="Integer"/>

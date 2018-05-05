@@ -7,15 +7,16 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		experiment("CRM", "model/My.ecore");
-		/*experiment("Families", "model/Families.ecore");
-		experiment("Persons", "model/Persons.ecore");
-		experiment("Grafcet", "model/Grafcet.ecore");
-		experiment("PNML", "model/PNML.ecore");
-		experiment("PathExp", "model/PathExp.ecore");
-		experiment("PetriNet", "model/PetriNet.ecore");
-		experiment("typeB", "model/TypeB.ecore");
-		experiment("SimpleClass", "model/SimpleClass.ecore");
-		experiment("SimpleRDBMS", "model/SimpleRDBMS.ecore");*/
+		//experiment("Families", "model/Families/BS1/Families.ecore");
+		
+		//experiment("Persons", "model/Grafcet/BS1/Persons.ecore");
+		//experiment("Grafcet", "model/Grafcet/BS5/Grafcet.ecore");
+		//experiment("PNML", "model/PNML/BS5/PNML.ecore");
+		//experiment("PathExp", "model/PathExp/BS1/PathExp.ecore");
+		//experiment("PetriNet", "model/PetriNet/BS5/PetriNet.ecore");
+		//experiment("typeB", "model/TypeB/BS5/TypeB.ecore");
+		//experiment("SimpleClass", "model/SimpleClass/BS5/SimpleClass.ecore");
+		//experiment("SimpleRDBMS", "model/SimpleRDBMS/BS4/SimpleRDBMS.ecore");
 		
 	}
 	

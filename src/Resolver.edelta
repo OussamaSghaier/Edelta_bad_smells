@@ -27,7 +27,8 @@ def checkRefactoringsCatalog(EPackage epackage){
 	resolveRedundantContainers(epackage);
 	resolveClassificationByHierarchy(epackage);
 	resolveConcreteAbstractMetaclass(epackage);
-	resolveAbstractConcreteMetaclass(epackage);
+
+	//resolveAbstractConcreteMetaclass(epackage);
 }
 
 /**

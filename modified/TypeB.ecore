@@ -11,12 +11,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="PortB" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InPortB" eSuperTypes="#//PortB #//NameElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OutPortB" eSuperTypes="#//PortB #//NameElement">
+  <eClassifiers xsi:type="ecore:EClass" name="InPortB" eSuperTypes="#//PortB"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OutPortB" abstract="true" eSuperTypes="#//PortB">
     <eStructuralFeatures xsi:type="ecore:EReference" name="block" lowerBound="1" eType="#//BlockB"
         eOpposite="#//BlockB/outputPorts"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NameElement" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="OutType1" eSuperTypes="#//OutPortB">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>
