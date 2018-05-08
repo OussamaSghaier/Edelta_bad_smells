@@ -25,9 +25,13 @@
           eType="#/0/Family" eOpposite="#/0/Family/sons"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="familyDaughter" ordered="false"
           eType="#/0/Family" eOpposite="#/0/Family/daughters"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastName" ordered="false"
+          unique="false" lowerBound="1" eType="#/1/String"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Sample"/>
     <eClassifiers xsi:type="ecore:EClass" name="Test"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MemberMale" eSuperTypes="#/0/Member"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MemberFemale" eSuperTypes="#/0/Member"/>
   </ecore:EPackage>
   <ecore:EPackage name="PrimitiveTypes" nsURI="http://pt" nsPrefix="pt">
     <eClassifiers xsi:type="ecore:EDataType" name="String" instanceTypeName="String"/>

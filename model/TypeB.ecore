@@ -18,4 +18,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="block" lowerBound="1" eType="#//BlockB"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NonReferencedClass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NonReferencedClass2"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OutType1" eSuperTypes="#//OutPortB"/>
 </ecore:EPackage>

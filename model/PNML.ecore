@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
   <ecore:EPackage name="PNML" nsURI="http://cs.gssi/pnml" nsPrefix="pnml">
-    <eClassifiers xsi:type="ecore:EClass" name="LocatedElement" abstract="true">
+    <eClassifiers xsi:type="ecore:EClass" name="LocatedElement">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" ordered="false"
           lowerBound="1" eType="#/1/String"/>
     </eClassifiers>
@@ -18,14 +18,13 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="xmlns" ordered="false"
           lowerBound="1" eType="#/0/URI" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="nets" ordered="false"
-          lowerBound="1" upperBound="-1" eType="#/0/NetElement" containment="true"
-          eOpposite="#/0/NetElement/document"/>
+          lowerBound="1" upperBound="-1" eType="#/0/NetElement" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="NetElement" eSuperTypes="#/0/IdedElement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false"
           lowerBound="1" eType="#/0/URI" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="document" ordered="false"
-          lowerBound="1" eType="#/0/PNMLDocument" eOpposite="#/0/PNMLDocument/nets"/>
+          lowerBound="1" eType="#/0/PNMLDocument"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="contents" ordered="false"
           upperBound="-1" eType="#/0/NetContent" containment="true" eOpposite="#/0/NetContent/net"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="name" ordered="false"
@@ -61,8 +60,12 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
           lowerBound="1" eType="#/0/NetContentElement"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Place" eSuperTypes="#/0/NetContentElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Place" eSuperTypes="#/0/NetContentElement">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" ordered="false"
+          lowerBound="1" eType="#/1/String"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#/0/NetContentElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="NonReferencedClass"/>
   </ecore:EPackage>
   <ecore:EPackage name="PrimitiveTypes" nsURI="http://pt.org" nsPrefix="pt">
     <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceTypeName="Integer"/>

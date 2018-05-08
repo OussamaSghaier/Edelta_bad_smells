@@ -35,7 +35,6 @@ public class Resolver extends AbstractEdelta {
     this.resolveRedundantContainers(epackage);
     this.resolveClassificationByHierarchy(epackage);
     this.resolveConcreteAbstractMetaclass(epackage);
-    this.resolveAbstractConcreteMetaclass(epackage);
   }
   
   /**

@@ -31,6 +31,8 @@
           ordered="false" upperBound="-1" eType="#/0/TransitionToStep" eOpposite="#/0/TransitionToStep/to"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingConnections"
           ordered="false" upperBound="-1" eType="#/0/StepToTransition" eOpposite="#/0/StepToTransition/from"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" ordered="false" lowerBound="1"
+          eType="#/1/String"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#/0/Element">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" ordered="false"
@@ -39,6 +41,8 @@
           ordered="false" upperBound="-1" eType="#/0/StepToTransition" eOpposite="#/0/StepToTransition/to"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingConnections"
           ordered="false" upperBound="-1" eType="#/0/TransitionToStep" eOpposite="#/0/TransitionToStep/from"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" ordered="false" lowerBound="1"
+          eType="#/1/String"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Connection" abstract="true" eSuperTypes="#/0/NamedElement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="grafcet" ordered="false"
@@ -49,13 +53,20 @@
           lowerBound="1" eType="#/0/Step" eOpposite="#/0/Step/outgoingConnections"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="to" ordered="false" lowerBound="1"
           eType="#/0/Transition" eOpposite="#/0/Transition/incomingConnections"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" ordered="false" lowerBound="1"
+          eType="#/1/String"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TransitionToStep" eSuperTypes="#/0/Connection">
       <eStructuralFeatures xsi:type="ecore:EReference" name="from" ordered="false"
           lowerBound="1" eType="#/0/Transition" eOpposite="#/0/Transition/outgoingConnections"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="to" ordered="false" lowerBound="1"
           eType="#/0/Step" eOpposite="#/0/Step/incomingConnections"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" ordered="false" lowerBound="1"
+          eType="#/1/String"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NonReferencedClass"/>
+    <eClassifiers xsi:type="ecore:EClass" name="FirstKindOfStep" eSuperTypes="#/0/Step"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SecondKindOfStep" eSuperTypes="#/0/Step"/>
   </ecore:EPackage>
   <ecore:EPackage name="PrimitiveTypes" nsURI="http://PrimitiveTypes" nsPrefix="pt">
     <eClassifiers xsi:type="ecore:EDataType" name="String" instanceTypeName="String"/>

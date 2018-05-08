@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <ecore:EPackage name="PathExp" nsURI="http://cs.gssi.it/pathExp" nsPrefix="PathExp">
+    <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" ordered="false"
+          lowerBound="1" eType="#/1/String"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PathExp" eSuperTypes="#/0/Element">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="states" ordered="false"
+          lowerBound="1" upperBound="-1" eType="#/0/State" containment="true" eOpposite="#/0/State/owner"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" ordered="false"
+          upperBound="-1" eType="#/0/Transition" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="State" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" ordered="false"
+          upperBound="-1" eType="#/0/Transition" eOpposite="#/0/Transition/target"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" ordered="false"
+          upperBound="-1" eType="#/0/Transition" eOpposite="#/0/Transition/source"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1"
+          eType="#/0/PathExp" eOpposite="#/0/PathExp/states"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#/0/Element">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
+          lowerBound="1" eType="#/0/State" eOpposite="#/0/State/outgoing"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
+          lowerBound="1" eType="#/0/State" eOpposite="#/0/State/incoming"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Initial" eSuperTypes="#/0/State">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bool_attr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Final" eSuperTypes="#/0/State">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bool_attr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Internal" eSuperTypes="#/0/State">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="attr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ecore:EPackage name="PrimitiveTypes" nsURI="http://pt" nsPrefix="pt">
+    <eClassifiers xsi:type="ecore:EDataType" name="String" instanceTypeName="String"/>
+  </ecore:EPackage>
+</xmi:XMI>
