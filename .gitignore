@@ -2,6 +2,7 @@
 bin/
 *.class
 *._trace
+*.xtendbin
 *.gz
 paper/main.pdf
 *.out
