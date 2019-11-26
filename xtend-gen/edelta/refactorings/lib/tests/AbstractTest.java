@@ -21,7 +21,7 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 
 @SuppressWarnings("all")
-public class AbstractTest {
+public abstract class AbstractTest {
   protected EcoreFactory factory = EcoreFactory.eINSTANCE;
   
   protected EDataType stringDataType = EcorePackage.eINSTANCE.getEString();

@@ -26,32 +26,32 @@ public class Resolver extends AbstractEdelta {
     super(other);
   }
   
-  public void checkRefactoringsCatalog(final EPackage epackage) {
-    this.resolveDuplicatedFeatures(epackage);
+  public void checkRefactoringsCatalog(final EPackage ePackage) {
+    this.resolveDuplicatedFeatures(ePackage);
     final Predicate<EClassifier> _function = (EClassifier it) -> {
       return true;
     };
-    this.resolveDeadClassifiers(epackage, _function);
-    this.resolveRedundantContainers(epackage);
-    this.resolveClassificationByHierarchy(epackage);
-    this.resolveConcreteAbstractMetaclass(epackage);
+    this.resolveDeadClassifiers(ePackage, _function);
+    this.resolveRedundantContainers(ePackage);
+    this.resolveClassificationByHierarchy(ePackage);
+    this.resolveConcreteAbstractMetaclass(ePackage);
   }
   
   /**
    * Extracts superclasses in the presence of duplicate features
    * considering all the classes of the given package.
    * 
-   * @param epackage
+   * @param ePackage
    */
-  public void resolveDuplicatedFeatures(final EPackage epackage) {
+  public void resolveDuplicatedFeatures(final EPackage ePackage) {
     final Consumer<List<EStructuralFeature>> _function = (List<EStructuralFeature> it) -> {
       this.refactorings.extractSuperclass(it);
     };
-    this.finder.findDuplicateFeatures(epackage).values().forEach(_function);
+    this.finder.findDuplicateFeatures(ePackage).values().forEach(_function);
   }
   
-  public void resolveDeadClassifiers(final EPackage epackage, final Predicate<EClassifier> shouldRemove) {
-    final List<EClassifier> deadClassifiers = this.finder.findDeadClassifiers(epackage);
+  public void resolveDeadClassifiers(final EPackage ePackage, final Predicate<EClassifier> shouldRemove) {
+    final List<EClassifier> deadClassifiers = this.finder.findDeadClassifiers(ePackage);
     final Consumer<EClassifier> _function = (EClassifier cl) -> {
       boolean _test = shouldRemove.test(cl);
       if (_test) {
@@ -61,23 +61,23 @@ public class Resolver extends AbstractEdelta {
     deadClassifiers.forEach(_function);
   }
   
-  public void resolveRedundantContainers(final EPackage epackage) {
+  public void resolveRedundantContainers(final EPackage ePackage) {
     this.refactorings.redundantContainerToEOpposite(
-      this.finder.findRedundantContainers(epackage));
+      this.finder.findRedundantContainers(ePackage));
   }
   
-  public void resolveClassificationByHierarchy(final EPackage epackage) {
+  public void resolveClassificationByHierarchy(final EPackage ePackage) {
     this.refactorings.classificationByHierarchyToEnum(
-      this.finder.findClassificationByHierarchy(epackage));
+      this.finder.findClassificationByHierarchy(ePackage));
   }
   
-  public void resolveConcreteAbstractMetaclass(final EPackage epackage) {
+  public void resolveConcreteAbstractMetaclass(final EPackage ePackage) {
     this.refactorings.concreteBaseMetaclassToAbstract(
-      this.finder.findConcreteAbstractMetaclasses(epackage));
+      this.finder.findConcreteAbstractMetaclasses(ePackage));
   }
   
-  public void resolveAbstractConcreteMetaclass(final EPackage epackage) {
+  public void resolveAbstractConcreteMetaclass(final EPackage ePackage) {
     this.refactorings.abstractBaseMetaclassToConcrete(
-      this.finder.findAbstractConcreteMetaclasses(epackage));
+      this.finder.findAbstractConcreteMetaclasses(ePackage));
   }
 }

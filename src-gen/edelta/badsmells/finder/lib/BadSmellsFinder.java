@@ -61,23 +61,23 @@ public class BadSmellsFinder extends AbstractEdelta {
    * (A1 : EString) -> [ C1:A1, C2:A1 ]
    * </pre>
    * 
-   * @param epackage
+   * @param ePackage
    */
-  public Map<EStructuralFeature, List<EStructuralFeature>> findDuplicateFeatures(final EPackage epackage) {
+  public Map<EStructuralFeature, List<EStructuralFeature>> findDuplicateFeatures(final EPackage ePackage) {
     final BiPredicate<EStructuralFeature, EStructuralFeature> _function = (EStructuralFeature existing, EStructuralFeature current) -> {
       return new EstructuralFeatureEqualityHelper().equals(existing, current);
     };
-    return this.findDuplicateFeaturesCustom(epackage, _function);
+    return this.findDuplicateFeaturesCustom(ePackage, _function);
   }
   
   /**
    * Allows you to specify the lambda checking for equality of features.
    * 
-   * @param epackage
+   * @param ePackage
    * @param matcher
    */
-  public Map<EStructuralFeature, List<EStructuralFeature>> findDuplicateFeaturesCustom(final EPackage epackage, final BiPredicate<EStructuralFeature, EStructuralFeature> matcher) {
-    final Iterable<EStructuralFeature> allFeatures = this.allEStructuralFeatures(epackage);
+  public Map<EStructuralFeature, List<EStructuralFeature>> findDuplicateFeaturesCustom(final EPackage ePackage, final BiPredicate<EStructuralFeature, EStructuralFeature> matcher) {
+    final Iterable<EStructuralFeature> allFeatures = this.allEStructuralFeatures(ePackage);
     final LinkedHashMap<EStructuralFeature, List<EStructuralFeature>> map = CollectionLiterals.<EStructuralFeature, List<EStructuralFeature>>newLinkedHashMap();
     for (final EStructuralFeature f : allFeatures) {
       {
@@ -129,11 +129,11 @@ public class BadSmellsFinder extends AbstractEdelta {
    * This form should make the corresponding refactoring trivial to
    * implement, since all the information are in the pair.
    */
-  public Iterable<Pair<EReference, EReference>> findRedundantContainers(final EPackage epackage) {
+  public Iterable<Pair<EReference, EReference>> findRedundantContainers(final EPackage ePackage) {
     final Function1<EClass, ArrayList<Pair<EReference, EReference>>> _function = (EClass it) -> {
       return this.findRedundantContainers(it);
     };
-    return Iterables.<Pair<EReference, EReference>>concat(IterableExtensions.<EClass, ArrayList<Pair<EReference, EReference>>>map(this.allEClasses(epackage), _function));
+    return Iterables.<Pair<EReference, EReference>>concat(IterableExtensions.<EClass, ArrayList<Pair<EReference, EReference>>>map(this.allEClasses(ePackage), _function));
   }
   
   /**
@@ -171,11 +171,11 @@ public class BadSmellsFinder extends AbstractEdelta {
     return redundantContainers;
   }
   
-  public List<EClassifier> findDeadClassifiers(final EPackage epackage) {
+  public List<EClassifier> findDeadClassifiers(final EPackage ePackage) {
     final Function1<EClassifier, Boolean> _function = (EClassifier it) -> {
       return Boolean.valueOf(this.isDeadClassifier(it));
     };
-    return IterableExtensions.<EClassifier>toList(IterableExtensions.<EClassifier>filter(epackage.getEClassifiers(), _function));
+    return IterableExtensions.<EClassifier>toList(IterableExtensions.<EClassifier>filter(ePackage.getEClassifiers(), _function));
   }
   
   /**
@@ -183,7 +183,7 @@ public class BadSmellsFinder extends AbstractEdelta {
    * and the associated value is a list of subclasses that are
    * considered matching the "classification by hierarchy" bad smell.
    */
-  public Map<EClass, List<EClass>> findClassificationByHierarchy(final EPackage epackage) {
+  public Map<EClass, List<EClass>> findClassificationByHierarchy(final EPackage ePackage) {
     final Function1<EClass, Boolean> _function = (EClass it) -> {
       return Boolean.valueOf((((it.getESuperTypes().size() == 1) && 
         it.getEStructuralFeatures().isEmpty()) && 
@@ -192,7 +192,7 @@ public class BadSmellsFinder extends AbstractEdelta {
     final Function1<EClass, EClass> _function_1 = (EClass it) -> {
       return IterableExtensions.<EClass>head(it.getESuperTypes());
     };
-    final Map<EClass, List<EClass>> classification = IterableExtensions.<EClass, EClass>groupBy(IterableExtensions.<EClass>filter(this.allEClasses(epackage), _function), _function_1);
+    final Map<EClass, List<EClass>> classification = IterableExtensions.<EClass, EClass>groupBy(IterableExtensions.<EClass>filter(this.allEClasses(ePackage), _function), _function_1);
     final Consumer<Map.Entry<EClass, List<EClass>>> _function_2 = (Map.Entry<EClass, List<EClass>> it) -> {
       final Supplier<String> _function_3 = () -> {
         String _eObjectRepr = this.lib.getEObjectRepr(it.getKey());
@@ -216,12 +216,12 @@ public class BadSmellsFinder extends AbstractEdelta {
    * Finds base classes that should be set as abstract,
    * since they have subclasses.
    */
-  public Iterable<EClass> findConcreteAbstractMetaclasses(final EPackage epackage) {
+  public Iterable<EClass> findConcreteAbstractMetaclasses(final EPackage ePackage) {
     final Function1<EClass, Boolean> _function = (EClass cl) -> {
       return Boolean.valueOf(((!cl.isAbstract()) && 
         this.hasSubclasses(cl)));
     };
-    final Iterable<EClass> classes = IterableExtensions.<EClass>filter(this.allEClasses(epackage), _function);
+    final Iterable<EClass> classes = IterableExtensions.<EClass>filter(this.allEClasses(ePackage), _function);
     final Consumer<EClass> _function_1 = (EClass it) -> {
       final Supplier<String> _function_2 = () -> {
         String _eObjectRepr = this.lib.getEObjectRepr(it);
@@ -237,12 +237,12 @@ public class BadSmellsFinder extends AbstractEdelta {
    * Finds abstract classes that should be concrete,
    * since they have no subclasses.
    */
-  public Iterable<EClass> findAbstractConcreteMetaclasses(final EPackage epackage) {
+  public Iterable<EClass> findAbstractConcreteMetaclasses(final EPackage ePackage) {
     final Function1<EClass, Boolean> _function = (EClass cl) -> {
       return Boolean.valueOf((cl.isAbstract() && 
         (!this.hasSubclasses(cl))));
     };
-    final Iterable<EClass> classes = IterableExtensions.<EClass>filter(this.allEClasses(epackage), _function);
+    final Iterable<EClass> classes = IterableExtensions.<EClass>filter(this.allEClasses(ePackage), _function);
     final Consumer<EClass> _function_1 = (EClass it) -> {
       final Supplier<String> _function_2 = () -> {
         String _eObjectRepr = this.lib.getEObjectRepr(it);
@@ -293,14 +293,14 @@ public class BadSmellsFinder extends AbstractEdelta {
     return _xblockexpression;
   }
   
-  public Iterable<EStructuralFeature> allEStructuralFeatures(final EPackage epackage) {
+  public Iterable<EStructuralFeature> allEStructuralFeatures(final EPackage ePackage) {
     final Function1<EClass, EList<EStructuralFeature>> _function = (EClass it) -> {
       return it.getEStructuralFeatures();
     };
-    return Iterables.<EStructuralFeature>concat(IterableExtensions.<EClass, EList<EStructuralFeature>>map(this.allEClasses(epackage), _function));
+    return Iterables.<EStructuralFeature>concat(IterableExtensions.<EClass, EList<EStructuralFeature>>map(this.allEClasses(ePackage), _function));
   }
   
-  public Iterable<EClass> allEClasses(final EPackage epackage) {
-    return Iterables.<EClass>filter(epackage.getEClassifiers(), EClass.class);
+  public Iterable<EClass> allEClasses(final EPackage ePackage) {
+    return Iterables.<EClass>filter(ePackage.getEClassifiers(), EClass.class);
   }
 }

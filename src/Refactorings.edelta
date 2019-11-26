@@ -46,10 +46,10 @@ def extractSuperclass(List<? extends EStructuralFeature> duplicates){
  * package; if not, it appends an incremental index until the name
  * is actually unique
  */
-def ensureEClassifierNameIsUnique(EPackage epackage, String proposedName) {
+def ensureEClassifierNameIsUnique(EPackage ePackage, String proposedName) {
 	var className = proposedName
 	val currentEClassifiersNames =
-		epackage.EClassifiers.map[name].sort
+		ePackage.EClassifiers.map[name].sort
 	var counter = 1
 	// make sure the new class is unique by name in the package
 	while (currentEClassifiersNames.contains(className)) {
@@ -75,20 +75,20 @@ def redundantContainerToEOpposite(Iterable<Pair<EReference, EReference>> redunda
 def classificationByHierarchyToEnum(Map<EClass, List<EClass>> classificationsByHierarchy) {
 	classificationsByHierarchy
 		.forEach[superClass, subClasses|
-			val epackage = superClass.EPackage
+			val ePackage = superClass.EPackage
 			val enumName = ensureEClassifierNameIsUnique
-				(epackage, superClass.name + "Type")
+				(ePackage, superClass.name + "Type")
 			val enum = newEEnum(enumName) [
 				subClasses.forEach[
 					subClass, index |
 					val enumLiteralName = ensureEClassifierNameIsUnique
-						(epackage, subClass.name.toUpperCase)
+						(ePackage, subClass.name.toUpperCase)
 					ELiterals += newEEnumLiteral(enumLiteralName) => [
 						value = index+1
 					]
 				]
 			]
-			epackage.EClassifiers += enum
+			ePackage.EClassifiers += enum
 			superClass.EStructuralFeatures +=
 				newEAttribute(superClass.name.toLowerCase + "Type") => [
 					EType = enum

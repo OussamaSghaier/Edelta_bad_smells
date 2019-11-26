@@ -10,11 +10,11 @@ package edelta.resolver.lib
 use Refactorings as refactorings
 use BadSmellsFinder as finder
 
-def checkRefactoringsCatalog(EPackage epackage){
-	resolveDuplicatedFeatures(epackage);
+def checkRefactoringsCatalog(EPackage ePackage){
+	resolveDuplicatedFeatures(ePackage);
 	// to ask for confirmation:
 	
-	/*resolveDeadClassifiers(epackage, [
+	/*resolveDeadClassifiers(ePackage, [
 		cl |
 		println("Should I remove dead classifier "
 			+ getEObjectRepr(cl)
@@ -23,28 +23,28 @@ def checkRefactoringsCatalog(EPackage epackage){
 	]);*/
 	
 	// remove without confirmation
-	resolveDeadClassifiers(epackage, [true]);
-	resolveRedundantContainers(epackage);
-	resolveClassificationByHierarchy(epackage);
-	resolveConcreteAbstractMetaclass(epackage);
+	resolveDeadClassifiers(ePackage, [true]);
+	resolveRedundantContainers(ePackage);
+	resolveClassificationByHierarchy(ePackage);
+	resolveConcreteAbstractMetaclass(ePackage);
 
-	//resolveAbstractConcreteMetaclass(epackage);
+	//resolveAbstractConcreteMetaclass(ePackage);
 }
 
 /**
  * Extracts superclasses in the presence of duplicate features
  * considering all the classes of the given package.
  * 
- * @param epackage
+ * @param ePackage
  */
-def resolveDuplicatedFeatures(EPackage epackage) {
-	finder.findDuplicateFeatures(epackage)
+def resolveDuplicatedFeatures(EPackage ePackage) {
+	finder.findDuplicateFeatures(ePackage)
 		.values
 		.forEach[refactorings.extractSuperclass(it)]
 }
 
-def resolveDeadClassifiers(EPackage epackage, Predicate<EClassifier> shouldRemove) {
-	val deadClassifiers = finder.findDeadClassifiers(epackage)
+def resolveDeadClassifiers(EPackage ePackage, Predicate<EClassifier> shouldRemove) {
+	val deadClassifiers = finder.findDeadClassifiers(ePackage)
 	deadClassifiers.forEach[
 		cl |
 		if (shouldRemove.test(cl))
@@ -52,27 +52,27 @@ def resolveDeadClassifiers(EPackage epackage, Predicate<EClassifier> shouldRemov
 	]
 }
 
-def resolveRedundantContainers(EPackage epackage) {
+def resolveRedundantContainers(EPackage ePackage) {
 	refactorings.redundantContainerToEOpposite(
-		finder.findRedundantContainers(epackage)
+		finder.findRedundantContainers(ePackage)
 	)
 }
 
-def resolveClassificationByHierarchy(EPackage epackage) {
+def resolveClassificationByHierarchy(EPackage ePackage) {
 	refactorings.classificationByHierarchyToEnum(
-		finder.findClassificationByHierarchy(epackage)
+		finder.findClassificationByHierarchy(ePackage)
 	)
 }
 
-def resolveConcreteAbstractMetaclass(EPackage epackage) {
+def resolveConcreteAbstractMetaclass(EPackage ePackage) {
 	refactorings.concreteBaseMetaclassToAbstract(
-		finder.findConcreteAbstractMetaclasses(epackage)
+		finder.findConcreteAbstractMetaclasses(ePackage)
 	)
 }
 
-def resolveAbstractConcreteMetaclass(EPackage epackage) {
+def resolveAbstractConcreteMetaclass(EPackage ePackage) {
 	refactorings.abstractBaseMetaclassToConcrete(
-		finder.findAbstractConcreteMetaclasses(epackage)
+		finder.findAbstractConcreteMetaclasses(ePackage)
 	)
 }
 

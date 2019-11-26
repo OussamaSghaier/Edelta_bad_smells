@@ -74,12 +74,12 @@ public class Refactorings extends AbstractEdelta {
    * package; if not, it appends an incremental index until the name
    * is actually unique
    */
-  public String ensureEClassifierNameIsUnique(final EPackage epackage, final String proposedName) {
+  public String ensureEClassifierNameIsUnique(final EPackage ePackage, final String proposedName) {
     String className = proposedName;
     final Function1<EClassifier, String> _function = (EClassifier it) -> {
       return it.getName();
     };
-    final List<String> currentEClassifiersNames = IterableExtensions.<String>sort(ListExtensions.<EClassifier, String>map(epackage.getEClassifiers(), _function));
+    final List<String> currentEClassifiersNames = IterableExtensions.<String>sort(ListExtensions.<EClassifier, String>map(ePackage.getEClassifiers(), _function));
     int counter = 1;
     while (currentEClassifiersNames.contains(className)) {
       String _className = className;
@@ -109,13 +109,13 @@ public class Refactorings extends AbstractEdelta {
   
   public void classificationByHierarchyToEnum(final Map<EClass, List<EClass>> classificationsByHierarchy) {
     final BiConsumer<EClass, List<EClass>> _function = (EClass superClass, List<EClass> subClasses) -> {
-      final EPackage epackage = superClass.getEPackage();
+      final EPackage ePackage = superClass.getEPackage();
       String _name = superClass.getName();
       String _plus = (_name + "Type");
-      final String enumName = this.ensureEClassifierNameIsUnique(epackage, _plus);
+      final String enumName = this.ensureEClassifierNameIsUnique(ePackage, _plus);
       final Consumer<EEnum> _function_1 = (EEnum it) -> {
         final Procedure2<EClass, Integer> _function_2 = (EClass subClass, Integer index) -> {
-          final String enumLiteralName = this.ensureEClassifierNameIsUnique(epackage, subClass.getName().toUpperCase());
+          final String enumLiteralName = this.ensureEClassifierNameIsUnique(ePackage, subClass.getName().toUpperCase());
           EList<EEnumLiteral> _eLiterals = it.getELiterals();
           EEnumLiteral _newEEnumLiteral = this.lib.newEEnumLiteral(enumLiteralName);
           final Procedure1<EEnumLiteral> _function_3 = (EEnumLiteral it_1) -> {
@@ -127,7 +127,7 @@ public class Refactorings extends AbstractEdelta {
         IterableExtensions.<EClass>forEach(subClasses, _function_2);
       };
       final EEnum enum_ = this.lib.newEEnum(enumName, _function_1);
-      EList<EClassifier> _eClassifiers = epackage.getEClassifiers();
+      EList<EClassifier> _eClassifiers = ePackage.getEClassifiers();
       _eClassifiers.add(enum_);
       EList<EStructuralFeature> _eStructuralFeatures = superClass.getEStructuralFeatures();
       String _lowerCase = superClass.getName().toLowerCase();

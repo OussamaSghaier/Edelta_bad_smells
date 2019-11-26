@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EcorePackage
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
 
-class AbstractTest {
+abstract class AbstractTest {
 
 	protected var factory = EcoreFactory.eINSTANCE
 

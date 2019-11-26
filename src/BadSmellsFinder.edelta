@@ -36,11 +36,11 @@ package edelta.badsmells.finder.lib
  * (A1 : EString) -> [ C1:A1, C2:A1 ]
  * </pre>
  * 
- * @param epackage
+ * @param ePackage
  */
-def findDuplicateFeatures(EPackage epackage) {
+def findDuplicateFeatures(EPackage ePackage) {
 	return findDuplicateFeaturesCustom(
-		epackage,
+		ePackage,
 		[existing, current|
 			new EstructuralFeatureEqualityHelper().equals(existing, current)
 		]
@@ -50,11 +50,11 @@ def findDuplicateFeatures(EPackage epackage) {
 /**
  * Allows you to specify the lambda checking for equality of features.
  * 
- * @param epackage
+ * @param ePackage
  * @param matcher
  */
- def findDuplicateFeaturesCustom(EPackage epackage, BiPredicate<EStructuralFeature, EStructuralFeature> matcher) {
-	val allFeatures = epackage.allEStructuralFeatures
+ def findDuplicateFeaturesCustom(EPackage ePackage, BiPredicate<EStructuralFeature, EStructuralFeature> matcher) {
+	val allFeatures = ePackage.allEStructuralFeatures
 	val map = <EStructuralFeature, List<EStructuralFeature>>newLinkedHashMap
 	for (f : allFeatures) {
 		val found = map.entrySet.findFirst[matcher.test(it.key, f)]
@@ -92,8 +92,8 @@ def findDuplicateFeatures(EPackage epackage) {
  * This form should make the corresponding refactoring trivial to
  * implement, since all the information are in the pair.
  */
-def findRedundantContainers(EPackage epackage) {
-	epackage.allEClasses
+def findRedundantContainers(EPackage ePackage) {
+	ePackage.allEClasses
 		.map[findRedundantContainers]
 		.flatten
 }
@@ -126,8 +126,8 @@ def findRedundantContainers(EClass cl) {
 	return redundantContainers
 }
 
-def findDeadClassifiers(EPackage epackage) {
-	epackage.EClassifiers
+def findDeadClassifiers(EPackage ePackage) {
+	ePackage.EClassifiers
 		.filter[isDeadClassifier]
 		.toList
 }
@@ -137,8 +137,8 @@ def findDeadClassifiers(EPackage epackage) {
  * and the associated value is a list of subclasses that are
  * considered matching the "classification by hierarchy" bad smell.
  */
-def findClassificationByHierarchy(EPackage epackage) {
-	val classification= epackage.allEClasses
+def findClassificationByHierarchy(EPackage ePackage) {
+	val classification= ePackage.allEClasses
 		.filter[
 			ESuperTypes.size == 1 &&
 			EStructuralFeatures.empty &&
@@ -160,8 +160,8 @@ def findClassificationByHierarchy(EPackage epackage) {
  * Finds base classes that should be set as abstract,
  * since they have subclasses.
  */
-def findConcreteAbstractMetaclasses(EPackage epackage) {
-	val classes= epackage.allEClasses
+def findConcreteAbstractMetaclasses(EPackage ePackage) {
+	val classes= ePackage.allEClasses
 		.filter[
 			cl |
 			!cl.abstract &&
@@ -177,8 +177,8 @@ def findConcreteAbstractMetaclasses(EPackage epackage) {
  * Finds abstract classes that should be concrete,
  * since they have no subclasses.
  */
-def findAbstractConcreteMetaclasses(EPackage epackage) {
-	val classes= epackage.allEClasses
+def findAbstractConcreteMetaclasses(EPackage ePackage) {
+	val classes= ePackage.allEClasses
 		.filter[
 			cl |
 			cl.abstract &&
@@ -217,13 +217,13 @@ def hasNoReferenceInThisPackage(EClassifier c) {
 		.empty
 }
 
-def allEStructuralFeatures(EPackage epackage) {
-	epackage.
+def allEStructuralFeatures(EPackage ePackage) {
+	ePackage.
 		allEClasses.
 		map[EStructuralFeatures].
 		flatten
 }
 
-def allEClasses(EPackage epackage) {
-	epackage.EClassifiers.filter(EClass)
+def allEClasses(EPackage ePackage) {
+	ePackage.EClassifiers.filter(EClass)
 }
