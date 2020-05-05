@@ -132,12 +132,8 @@ public class Refactorings extends AbstractEdelta {
       EList<EStructuralFeature> _eStructuralFeatures = superClass.getEStructuralFeatures();
       String _lowerCase = superClass.getName().toLowerCase();
       String _plus_1 = (_lowerCase + "Type");
-      EAttribute _newEAttribute = this.lib.newEAttribute(_plus_1);
-      final Procedure1<EAttribute> _function_2 = (EAttribute it) -> {
-        it.setEType(enum_);
-      };
-      EAttribute _doubleArrow = ObjectExtensions.<EAttribute>operator_doubleArrow(_newEAttribute, _function_2);
-      _eStructuralFeatures.add(_doubleArrow);
+      EAttribute _newEAttribute = this.lib.newEAttribute(_plus_1, enum_);
+      _eStructuralFeatures.add(_newEAttribute);
       EcoreUtil.removeAll(subClasses);
     };
     classificationsByHierarchy.forEach(_function);

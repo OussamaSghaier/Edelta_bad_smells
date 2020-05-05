@@ -90,9 +90,7 @@ def classificationByHierarchyToEnum(Map<EClass, List<EClass>> classificationsByH
 			]
 			ePackage.EClassifiers += enum
 			superClass.EStructuralFeatures +=
-				newEAttribute(superClass.name.toLowerCase + "Type") => [
-					EType = enum
-				]
+				newEAttribute(superClass.name.toLowerCase + "Type", enum)
 			EcoreUtil.removeAll(subClasses)
 		]
 }
