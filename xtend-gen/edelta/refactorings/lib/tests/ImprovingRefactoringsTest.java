@@ -36,6 +36,7 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -250,15 +251,15 @@ public class ImprovingRefactoringsTest extends AbstractTest {
       return it.getName();
     };
     final List<String> classifiersNames = ListExtensions.<EClassifier, String>map(p.getEClassifiers(), _function_2);
-    Assert.<List<String>>assertThat(classifiersNames, CoreMatchers.<String>hasItems("C1", "C2", "A1Element"));
-    Assert.<Integer>assertThat(Integer.valueOf(classifiersNames.size()), CoreMatchers.<Integer>is(Integer.valueOf(3)));
+    MatcherAssert.<List<String>>assertThat(classifiersNames, CoreMatchers.<String>hasItems("C1", "C2", "A1Element"));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf(classifiersNames.size()), CoreMatchers.<Integer>is(Integer.valueOf(3)));
     final Iterable<EClass> classes = this.EClasses(p);
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[0]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[1]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[2]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[0]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[1]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[2]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
     final EAttribute extracted = IterableExtensions.<EAttribute>head((((EClass[])Conversions.unwrapArray(classes, EClass.class))[2]).getEAttributes());
-    Assert.<String>assertThat(extracted.getName(), CoreMatchers.<String>is("A1"));
-    Assert.<EDataType>assertThat(extracted.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
+    MatcherAssert.<String>assertThat(extracted.getName(), CoreMatchers.<String>is("A1"));
+    MatcherAssert.<EDataType>assertThat(extracted.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
   }
   
   @Test
@@ -306,30 +307,30 @@ public class ImprovingRefactoringsTest extends AbstractTest {
     };
     final EPackage p = ObjectExtensions.<EPackage>operator_doubleArrow(_createEPackage, _function);
     final Collection<List<EStructuralFeature>> duplicates = this.finder.findDuplicateFeatures(p).values();
-    Assert.<Integer>assertThat(Integer.valueOf(duplicates.size()), CoreMatchers.<Integer>is(Integer.valueOf(2)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf(duplicates.size()), CoreMatchers.<Integer>is(Integer.valueOf(2)));
     this.refactorings.extractSuperclass(((List<? extends EStructuralFeature>[])Conversions.unwrapArray(duplicates, List.class))[0]);
     this.refactorings.extractSuperclass(((List<? extends EStructuralFeature>[])Conversions.unwrapArray(duplicates, List.class))[1]);
     final Function1<EClassifier, String> _function_1 = (EClassifier it) -> {
       return it.getName();
     };
     final List<String> classifiersNames = ListExtensions.<EClassifier, String>map(p.getEClassifiers(), _function_1);
-    Assert.<List<String>>assertThat(classifiersNames, CoreMatchers.<String>hasItems("C1", "C2", "C3", "C4", "A1Element", "A1Element1"));
-    Assert.<Integer>assertThat(Integer.valueOf(classifiersNames.size()), CoreMatchers.<Integer>is(Integer.valueOf(6)));
+    MatcherAssert.<List<String>>assertThat(classifiersNames, CoreMatchers.<String>hasItems("C1", "C2", "C3", "C4", "A1Element", "A1Element1"));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf(classifiersNames.size()), CoreMatchers.<Integer>is(Integer.valueOf(6)));
     final Iterable<EClass> classes = this.EClasses(p);
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[0]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[1]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[2]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[3]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[4]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[5]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[0]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[1]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[2]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[3]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[4]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[5]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
     final EAttribute extractedA1NoLowerBound = IterableExtensions.<EAttribute>head((((EClass[])Conversions.unwrapArray(classes, EClass.class))[4]).getEAttributes());
-    Assert.<String>assertThat(extractedA1NoLowerBound.getName(), CoreMatchers.<String>is("A1"));
-    Assert.<EDataType>assertThat(extractedA1NoLowerBound.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
-    Assert.<Integer>assertThat(Integer.valueOf(extractedA1NoLowerBound.getLowerBound()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<String>assertThat(extractedA1NoLowerBound.getName(), CoreMatchers.<String>is("A1"));
+    MatcherAssert.<EDataType>assertThat(extractedA1NoLowerBound.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf(extractedA1NoLowerBound.getLowerBound()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
     final EAttribute extractedA1WithLowerBound = IterableExtensions.<EAttribute>head((((EClass[])Conversions.unwrapArray(classes, EClass.class))[5]).getEAttributes());
-    Assert.<String>assertThat(extractedA1WithLowerBound.getName(), CoreMatchers.<String>is("A1"));
-    Assert.<EDataType>assertThat(extractedA1WithLowerBound.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
-    Assert.<Integer>assertThat(Integer.valueOf(extractedA1WithLowerBound.getLowerBound()), CoreMatchers.<Integer>is(Integer.valueOf(2)));
+    MatcherAssert.<String>assertThat(extractedA1WithLowerBound.getName(), CoreMatchers.<String>is("A1"));
+    MatcherAssert.<EDataType>assertThat(extractedA1WithLowerBound.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf(extractedA1WithLowerBound.getLowerBound()), CoreMatchers.<Integer>is(Integer.valueOf(2)));
   }
   
   @Test
@@ -381,23 +382,23 @@ public class ImprovingRefactoringsTest extends AbstractTest {
       return it.getName();
     };
     final List<String> classifiersNames = ListExtensions.<EClassifier, String>map(p.getEClassifiers(), _function_1);
-    Assert.<List<String>>assertThat(classifiersNames, CoreMatchers.<String>hasItems("C1", "C2", "C3", "C4", "A1Element", "A1Element1"));
-    Assert.<Integer>assertThat(Integer.valueOf(classifiersNames.size()), CoreMatchers.<Integer>is(Integer.valueOf(6)));
+    MatcherAssert.<List<String>>assertThat(classifiersNames, CoreMatchers.<String>hasItems("C1", "C2", "C3", "C4", "A1Element", "A1Element1"));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf(classifiersNames.size()), CoreMatchers.<Integer>is(Integer.valueOf(6)));
     final Iterable<EClass> classes = this.EClasses(p);
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[0]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[1]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[2]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[3]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[4]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
-    Assert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[5]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[0]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[1]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[2]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[3]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[4]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf((((EClass[])Conversions.unwrapArray(classes, EClass.class))[5]).getEAttributes().size()), CoreMatchers.<Integer>is(Integer.valueOf(1)));
     final EAttribute extractedA1NoLowerBound = IterableExtensions.<EAttribute>head((((EClass[])Conversions.unwrapArray(classes, EClass.class))[4]).getEAttributes());
-    Assert.<String>assertThat(extractedA1NoLowerBound.getName(), CoreMatchers.<String>is("A1"));
-    Assert.<EDataType>assertThat(extractedA1NoLowerBound.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
-    Assert.<Integer>assertThat(Integer.valueOf(extractedA1NoLowerBound.getLowerBound()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
+    MatcherAssert.<String>assertThat(extractedA1NoLowerBound.getName(), CoreMatchers.<String>is("A1"));
+    MatcherAssert.<EDataType>assertThat(extractedA1NoLowerBound.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf(extractedA1NoLowerBound.getLowerBound()), CoreMatchers.<Integer>is(Integer.valueOf(0)));
     final EAttribute extractedA1WithLowerBound = IterableExtensions.<EAttribute>head((((EClass[])Conversions.unwrapArray(classes, EClass.class))[5]).getEAttributes());
-    Assert.<String>assertThat(extractedA1WithLowerBound.getName(), CoreMatchers.<String>is("A1"));
-    Assert.<EDataType>assertThat(extractedA1WithLowerBound.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
-    Assert.<Integer>assertThat(Integer.valueOf(extractedA1WithLowerBound.getLowerBound()), CoreMatchers.<Integer>is(Integer.valueOf(2)));
+    MatcherAssert.<String>assertThat(extractedA1WithLowerBound.getName(), CoreMatchers.<String>is("A1"));
+    MatcherAssert.<EDataType>assertThat(extractedA1WithLowerBound.getEAttributeType(), CoreMatchers.<EDataType>is(this.stringDataType));
+    MatcherAssert.<Integer>assertThat(Integer.valueOf(extractedA1WithLowerBound.getLowerBound()), CoreMatchers.<Integer>is(Integer.valueOf(2)));
   }
   
   @Test

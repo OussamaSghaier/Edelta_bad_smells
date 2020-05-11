@@ -18,7 +18,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
 
 @SuppressWarnings("all")
 public abstract class AbstractTest {
@@ -69,12 +69,12 @@ public abstract class AbstractTest {
   
   protected <T extends ENamedElement> void assertIterable(final Iterable<T> actual, final Iterable<? extends T> expected) {
     for (final T item : expected) {
-      Assert.<Iterable<T>>assertThat(actual, CoreMatchers.<T>hasItem(item));
+      MatcherAssert.<Iterable<T>>assertThat(actual, CoreMatchers.<T>hasItem(item));
     }
     final Function1<T, String> _function = (T it) -> {
       return it.getName();
     };
-    Assert.<Integer>assertThat(
+    MatcherAssert.<Integer>assertThat(
       IterableExtensions.join(IterableExtensions.<T, String>map(actual, _function), ", "), 
       Integer.valueOf(IterableExtensions.size(actual)), CoreMatchers.<Integer>is(Integer.valueOf(IterableExtensions.size(expected))));
   }

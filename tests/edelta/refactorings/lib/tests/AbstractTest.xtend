@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EcoreFactory
 import org.eclipse.emf.ecore.EcorePackage
 
 import static org.hamcrest.CoreMatchers.*
-import static org.junit.Assert.*
+import static org.hamcrest.MatcherAssert.assertThat
 
 abstract class AbstractTest {
 

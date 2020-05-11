@@ -9,6 +9,7 @@ import org.junit.Test
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
+import static org.hamcrest.MatcherAssert.assertThat
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer
 import org.eclipse.emf.ecore.EClassifier
